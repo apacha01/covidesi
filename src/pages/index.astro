@@ -1,0 +1,34 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ColorInput from "../components/ColorInput.astro";
+---
+
+<Layout
+	title="Covidesi - Color Vision Deficency Simulator"
+	description="A color blindness simulator for developers so you can see how people with different color vision deficencies actually see the world, and your page."
+>
+	<main class="flex flex-col lg:flex-row">
+		<!-- Small sample page with the controls -->
+		<section class="w-1/2 p-4">
+			<div class="flex flex-col gap-6">
+				<div class="flex w-full justify-between">
+					<ColorInput
+						id="text-color"
+						label="Text"
+						value="#000000"
+						class="flex gap-2 text-3xl"
+					/>
+					<ColorInput
+						id="bg-color"
+						label="Background"
+						value="#FFFFFF"
+						class="flex gap-2 text-3xl"
+					/>
+				</div>
+			</div>
+		</section>
+
+		<!-- Banner & Buttons examples -->
+		<section class="w-1/2"></section>
+	</main>
+</Layout>
