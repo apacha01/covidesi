@@ -1,6 +1,14 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import ColorInput from "../components/ColorInput.astro";
+import RadioSelector from "../components/RadioSelector.astro";
+
+let CVDs = [
+	{ label: "Normal", value: "normal", id: "normal" },
+	{ label: "Protanopia", value: "protanopia", id: "protanopia" },
+	{ label: "Deuteranopia", value: "deuteranopia", id: "deuteranopia" },
+	{ label: "Tritanopia", value: "tritanopia", id: "tritanopia" },
+];
 ---
 
 <Layout
@@ -24,6 +32,23 @@ import ColorInput from "../components/ColorInput.astro";
 						value="#FFFFFF"
 						class="flex gap-2 text-3xl"
 					/>
+				</div>
+				<div class="flex w-full justify-between items-center text-2xl">
+					<RadioSelector
+						items={CVDs}
+						radiosName="cvds"
+						inputsClass="border-2 border-slate-950 py-2 px-4 rounded-xl cursor-pointer hover:bg-slate-950 hover:text-slate-100 transition-[background-color_color]"
+					/>
+					<label class="flex gap-2 items-center">
+						Severity:
+						<input
+							type="number"
+							max="10"
+							min="1"
+							value="1"
+							class="h-12 aspect-square pl-2"
+						/>
+					</label>
 				</div>
 			</div>
 		</section>

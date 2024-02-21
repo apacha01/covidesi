@@ -1,0 +1,27 @@
+---
+interface Props {
+	items: { label: string; value: string; id: string }[];
+	radiosName: string;
+	class?: string;
+	inputsClass?: string;
+}
+
+const { items, radiosName, class: className, inputsClass } = Astro.props;
+---
+
+{
+	items.map((i) => {
+		return (
+			<label class={inputsClass}>
+				{i.label}
+				<input
+					type="radio"
+					name={radiosName}
+					id={i.id}
+					value={i.value}
+					class="hidden"
+				/>
+			</label>
+		);
+	})
+}
