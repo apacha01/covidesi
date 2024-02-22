@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import ColorInput from "../components/ColorInput.astro";
 import RadioSelector from "../components/RadioSelector.astro";
 import SamplePage from "../components/SamplePage.astro";
+import ContrastChecker from "../components/ContrastChecker.astro";
 
 let CVDs = [
 	{ label: "Normal", value: "normal", id: "normal" },
@@ -34,6 +35,7 @@ let CVDs = [
 						value="#FFFFFF"
 						class="flex gap-2 text-3xl"
 					/>
+					<ContrastChecker />
 				</div>
 
 				<!-- CVD Selector with severity -->
