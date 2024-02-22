@@ -8,7 +8,7 @@ const { title, description } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" class="bg-slate-50 text-slate-950">
+<html lang="en" class="bg-white text-black">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content={description} />
@@ -16,7 +16,11 @@ const { title, description } = Astro.props;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<title>{title}</title>
 	</head>
-	<body class="w-screen min-w-screen h-fit min-h-screen px-16 py-12">
+	<body class="min-w-screen max-w-screen h-fit min-h-screen px-16 py-12">
+		<h1 class="max-w-full font-bold text-center text-5xl">COVIDESI</h1>
+		<h2 class="max-w-full font-bold text-center text-3xl mb-8">
+			Color Vision Deficency Simulator
+		</h2>
 		<slot />
 	</body>
 </html>
