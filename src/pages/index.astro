@@ -1,16 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import ColorsInput from "../components/ColorsInput.astro";
-import RadioSelector from "../components/RadioSelector.astro";
 import SamplePage from "../components/SamplePage.astro";
 import ContrastChecker from "../components/ContrastChecker.astro";
-
-let CVDs = [
-	{ label: "Normal", value: "normal", id: "normal" },
-	{ label: "Protanopia", value: "protanopia", id: "protanopia" },
-	{ label: "Deuteranopia", value: "deuteranopia", id: "deuteranopia" },
-	{ label: "Tritanopia", value: "tritanopia", id: "tritanopia" },
-];
+import CvdSelector from "../components/CvdSelector.astro";
 ---
 
 <Layout
@@ -30,25 +23,7 @@ let CVDs = [
 				</div>
 
 				<!-- CVD Selector with severity -->
-				<div
-					class="cvd_selector flex flex-wrap gap-x-6 gap-y-6 w-full justify-between items-center text-2xl custom-920:flex-row custom-920:gap-x-0"
-				>
-					<RadioSelector
-						items={CVDs}
-						radiosName="cvds"
-						inputsClass="font-bold border-2 border-slate-950 py-2 px-4 rounded-xl cursor-pointer hover:bg-slate-950 hover:text-slate-50 transition-[background-color,color] has-[:checked]:bg-slate-950 has-[:checked]:text-slate-50"
-					/>
-					<label class="flex gap-2 items-center">
-						Severity:
-						<input
-							type="number"
-							max="10"
-							min="1"
-							value="10"
-							class="h-12 aspect-square pl-2"
-						/>
-					</label>
-				</div>
+				<CvdSelector />
 
 				<!-- Sample embeded web page -->
 				<SamplePage

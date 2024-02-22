@@ -1,0 +1,120 @@
+---
+import RadioSelector from "../components/RadioSelector.astro";
+import { CVD } from "../constants";
+
+let CVDs = [
+	{ label: CVD.NORMAL, value: CVD.NORMAL, id: "normal" },
+	{ label: CVD.PROTANOPIA, value: CVD.PROTANOPIA, id: "protanopia" },
+	{ label: CVD.DEUTERANOPIA, value: CVD.DEUTERANOPIA, id: "deuteranopia" },
+	{ label: CVD.TRITANOPIA, value: CVD.TRITANOPIA, id: "tritanopia" },
+];
+---
+
+<div
+	class="cvd_selector flex flex-wrap gap-x-6 gap-y-6 w-full justify-between items-center text-2xl custom-920:flex-row custom-920:gap-x-0"
+>
+	<RadioSelector
+		items={CVDs}
+		radiosName="cvds"
+		inputsClass="font-bold border-2 border-slate-950 py-2 px-4 rounded-xl cursor-pointer hover:bg-slate-950 hover:text-slate-50 transition-[background-color,color] has-[:checked]:bg-slate-950 has-[:checked]:text-slate-50"
+	/>
+	<label class="flex gap-2 items-center">
+		Severity:
+		<input
+			id="severity"
+			type="number"
+			max="10"
+			min="1"
+			value="10"
+			class="h-12 aspect-square pl-2"
+		/>
+	</label>
+</div>
+
+<script>
+	import {
+		textColor,
+		bgColor,
+		setCvdTextColor,
+		setCvdBgColor,
+	} from "../stores/colors";
+	import { cvd, setCvd, setCvdSeverity } from "../stores/cvd";
+	import { CVD, machadoMatrices } from "../constants";
+	import { hex2rgb, rgb2hex } from "../utils";
+
+	let sevInp = document.getElementById("severity");
+	let radios = document.getElementsByName("cvds");
+
+	const clampSeverity = (s) => {
+		return s > 10 ? 10 : s < 1 ? 1 : s;
+	};
+
+	const clampRGB = (n) => {
+		return n > 255 ? 255 : n < 0 ? 0 : n;
+	};
+
+	// Calculate the color seen depending on the CVD
+	const calculateColorByCvd = (_cvd, _severity, hexColorString) => {
+		let realSeverity = clampSeverity(_severity);
+		let { r, g, b } = hex2rgb(hexColorString);
+
+		if (
+			!Object.values(CVD).includes(_cvd) ||
+			_cvd.localeCompare(CVD.NORMAL) === 0
+		)
+			return { r, g, b };
+
+		// https://www.inf.ufrgs.br/~oliveira/pubs_files/CVD_Simulation/CVD_Simulation.html
+		let M = machadoMatrices[_cvd][realSeverity - 1];
+
+		return {
+			r: clampRGB(Math.round(M[0] * r + M[1] * g + M[2] * b)),
+			g: clampRGB(Math.round(M[3] * r + M[4] * g + M[5] * b)),
+			b: clampRGB(Math.round(M[6] * r + M[7] * g + M[8] * b)),
+		};
+	};
+
+	sevInp.addEventListener("change", (e) => {
+		setCvdSeverity(clampSeverity(e.target.value));
+	});
+
+	radios.forEach((r) => {
+		r.addEventListener("click", (e) => {
+			setCvd(e.target.value);
+		});
+	});
+
+	// When either of the colors or the cvd changes, calculate colors again
+	textColor.subscribe((v, ov) => {
+		setCvdTextColor(
+			rgb2hex(
+				calculateColorByCvd(
+					cvd.get().cvd,
+					cvd.get().severity,
+					textColor.get(),
+				),
+			),
+		);
+	});
+
+	bgColor.subscribe((v, ov) => {
+		setCvdBgColor(
+			rgb2hex(
+				calculateColorByCvd(
+					cvd.get().cvd,
+					cvd.get().severity,
+					bgColor.get(),
+				),
+			),
+		);
+	});
+
+	cvd.subscribe((v, ov) => {
+		setCvdTextColor(
+			rgb2hex(calculateColorByCvd(v.cvd, v.severity, textColor.get())),
+		);
+		setCvdBgColor(
+			rgb2hex(calculateColorByCvd(v.cvd, v.severity, bgColor.get())),
+		);
+	});
+</script>

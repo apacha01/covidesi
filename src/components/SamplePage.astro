@@ -32,23 +32,17 @@ const { class: className, title, subtitle } = Astro.props;
 		Perferendis inventore ipsum aut accusamus unde fugiat quia temporibus
 		voluptatum?
 	</p>
-	<p class="ml-2 text-lg text-pretty">
-		Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum facere
-		labore explicabo doloremque, repellat ipsam ab ea atque itaque delectus.
-		Perferendis inventore ipsum aut accusamus unde fugiat quia temporibus
-		voluptatum?
-	</p>
 </article>
 
 <script>
 	const spage = document.getElementById("sample-page");
-	import { bgColor, textColor } from "../stores/colors";
+	import { cvdBgColor, cvdTextColor } from "../stores/colors";
 
 	// Subscribe to the changes with the sample page colors
-	bgColor.subscribe((v, ov) => {
+	cvdBgColor.subscribe((v, ov) => {
 		spage.style.backgroundColor = v;
 	});
-	textColor.subscribe((v, ov) => {
+	cvdTextColor.subscribe((v, ov) => {
 		spage.style.color = v;
 	});
 </script>
