@@ -39,40 +39,10 @@ let CVDs = [
 		setCvdBgColor,
 	} from "../stores/colors";
 	import { cvd, setCvd, setCvdSeverity } from "../stores/cvd";
-	import { CVD, machadoMatrices } from "../constants";
-	import { hex2rgb, rgb2hex } from "../utils";
+	import { rgb2hex, calculateColorByCvd, clampSeverity } from "../utils";
 
 	let sevInp = document.getElementById("severity");
 	let radios = document.getElementsByName("cvds");
-
-	const clampSeverity = (s) => {
-		return s > 10 ? 10 : s < 1 ? 1 : s;
-	};
-
-	const clampRGB = (n) => {
-		return n > 255 ? 255 : n < 0 ? 0 : n;
-	};
-
-	// Calculate the color seen depending on the CVD
-	const calculateColorByCvd = (_cvd, _severity, hexColorString) => {
-		let realSeverity = clampSeverity(_severity);
-		let { r, g, b } = hex2rgb(hexColorString);
-
-		if (
-			!Object.values(CVD).includes(_cvd) ||
-			_cvd.localeCompare(CVD.NORMAL) === 0
-		)
-			return { r, g, b };
-
-		// https://www.inf.ufrgs.br/~oliveira/pubs_files/CVD_Simulation/CVD_Simulation.html
-		let M = machadoMatrices[_cvd][realSeverity - 1];
-
-		return {
-			r: clampRGB(Math.round(M[0] * r + M[1] * g + M[2] * b)),
-			g: clampRGB(Math.round(M[3] * r + M[4] * g + M[5] * b)),
-			b: clampRGB(Math.round(M[6] * r + M[7] * g + M[8] * b)),
-		};
-	};
 
 	sevInp.addEventListener("change", (e) => {
 		setCvdSeverity(clampSeverity(e.target.value));

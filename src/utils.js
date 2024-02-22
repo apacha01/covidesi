@@ -1,3 +1,5 @@
+import { CVD, machadoMatrices } from "./constants";
+
 export const hex2rgb = (hex) => {
 	let result6digit =
 		/^#?([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})?$/i.exec(hex);
@@ -27,6 +29,7 @@ export const rgb2hex = ({ r, g, b }) => {
 	return '#' + r.toString(16).padStart(2, 0) + g.toString(16).padStart(2, 0) + b.toString(16).padStart(2, 0);
 }
 
+///////////////////////////////////////////////// Contrast Check
 // Calculate relative luminance with w3 (https://www.w3.org/WAI/GL/wiki/Relative_luminance) formula:
 // L = 0.2126 * R + 0.7152 * G + 0.0722 * B where R, G and B are defined as:
 // if RsRGB <= 0.04045 then R = RsRGB/12.92 else R = ((RsRGB+0.055)/1.055) ^ 2.4
@@ -68,4 +71,34 @@ export const calculateContrastRatio = (hexColorString1, hexColorString2) => {
 	if (L1 < L2) return (L2 + 0.05) / (L1 + 0.05);
 	// L1 is lighter
 	else return (L1 + 0.05) / (L2 + 0.05);
+};
+
+/////////////////////////////////////// CVD changes & selection
+export const clampSeverity = (s) => {
+	return s > 10 ? 10 : s < 1 ? 1 : s;
+};
+
+export const clampRGB = (n) => {
+	return n > 255 ? 255 : n < 0 ? 0 : n;
+};
+
+// Calculate the color seen depending on the CVD
+export const calculateColorByCvd = (_cvd, _severity, hexColorString) => {
+	let realSeverity = clampSeverity(_severity);
+	let { r, g, b } = hex2rgb(hexColorString);
+
+	if (
+		!Object.values(CVD).includes(_cvd) ||
+		_cvd.localeCompare(CVD.NORMAL) === 0
+	)
+		return { r, g, b };
+
+	// https://www.inf.ufrgs.br/~oliveira/pubs_files/CVD_Simulation/CVD_Simulation.html
+	let M = machadoMatrices[_cvd][realSeverity - 1];
+
+	return {
+		r: clampRGB(Math.round(M[0] * r + M[1] * g + M[2] * b)),
+		g: clampRGB(Math.round(M[3] * r + M[4] * g + M[5] * b)),
+		b: clampRGB(Math.round(M[6] * r + M[7] * g + M[8] * b)),
+	};
 };
