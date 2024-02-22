@@ -1,0 +1,54 @@
+---
+interface Props {}
+---
+
+<label class="flex gap-2 text-3xl">
+	Text:
+	<input
+		type="text"
+		name="text-color"
+		id="text-color"
+		value="#000000"
+		minlength="0"
+		maxlength="7"
+		pattern="(?:#?[0-9a-fA-F]{6}|#?[0-9a-fA-F]{3})"
+		class="font-mono pl-2 w-[120px] text-2xl rounded-md invalid:border-2 invalid:border-red-500"
+	/>
+</label>
+<label class="flex gap-2 text-3xl">
+	Background:
+	<input
+		type="text"
+		name="bg-color"
+		id="bg-color"
+		value="#FFFFFF"
+		minlength="0"
+		maxlength="7"
+		pattern="(?:#?[0-9a-fA-F]{6}|#?[0-9a-fA-F]{3})"
+		class="font-mono pl-2 w-[120px] text-2xl rounded-md invalid:border-2 invalid:border-red-500"
+	/>
+</label>
+
+<script>
+	import { setTextColor, setBgColor } from "../stores/colors";
+	const txtColorInput = document.getElementById("text-color");
+	const bgColorInput = document.getElementById("bg-color");
+
+	txtColorInput.addEventListener("change", (e) => {
+		let newValue = e.target.value;
+		let isInalid = e.target.validity.patternMismatch;
+
+		// Check new value is correct
+		if (isInalid) return;
+		else setTextColor(newValue);
+	});
+
+	bgColorInput.addEventListener("change", (e) => {
+		let newValue = e.target.value;
+		let isInalid = e.target.validity.patternMismatch;
+
+		// Check new value is correct
+		if (isInalid) return;
+		else setBgColor(newValue);
+	});
+</script>

@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import ColorInput from "../components/ColorInput.astro";
+import ColorsInput from "../components/ColorsInput.astro";
 import RadioSelector from "../components/RadioSelector.astro";
 import SamplePage from "../components/SamplePage.astro";
 import ContrastChecker from "../components/ContrastChecker.astro";
@@ -25,18 +25,7 @@ let CVDs = [
 				<div
 					class="flex flex-col gap-6 w-full justify-between items-center custom-920:flex-row custom-920:gap-0"
 				>
-					<ColorInput
-						id="text-color"
-						label="Text"
-						value="#000000"
-						class="flex gap-2 text-3xl"
-					/>
-					<ColorInput
-						id="bg-color"
-						label="Background"
-						value="#FFFFFF"
-						class="flex gap-2 text-3xl"
-					/>
+					<ColorsInput />
 					<ContrastChecker />
 				</div>
 
@@ -47,7 +36,7 @@ let CVDs = [
 					<RadioSelector
 						items={CVDs}
 						radiosName="cvds"
-						inputsClass="border-2 border-slate-950 py-2 px-4 rounded-xl cursor-pointer hover:bg-slate-950 hover:text-slate-100 transition-[background-color_color]"
+						inputsClass="font-bold border-2 border-slate-950 py-2 px-4 rounded-xl cursor-pointer hover:bg-slate-950 hover:text-slate-50 transition-[background-color_color]"
 					/>
 					<label class="flex gap-2 items-center">
 						Severity:
