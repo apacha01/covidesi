@@ -17,12 +17,14 @@ let CVDs = [
 	title="Covidesi - Color Vision Deficency Simulator"
 	description="A color blindness simulator for developers so you can see how people with different color vision deficencies actually see the world, and your page."
 >
-	<main class="flex flex-col lg:flex-row">
+	<main class="flex flex-col 2xl:flex-row">
 		<!-- Small sample page with the controls -->
-		<section class="w-1/2 p-4">
+		<section class="w-full 2xl:w-1/2 p-4">
 			<!-- Text and Background Color Inputs -->
 			<div class="flex flex-col gap-6">
-				<div class="flex w-full justify-between">
+				<div
+					class="flex flex-col gap-6 w-full justify-between items-center custom-920:flex-row custom-920:gap-0"
+				>
 					<ColorInput
 						id="text-color"
 						label="Text"
@@ -40,7 +42,7 @@ let CVDs = [
 
 				<!-- CVD Selector with severity -->
 				<div
-					class="cvd_selector flex w-full justify-between items-center text-2xl"
+					class="cvd_selector flex flex-wrap gap-x-6 gap-y-6 w-full justify-between items-center text-2xl custom-920:flex-row custom-920:gap-x-0"
 				>
 					<RadioSelector
 						items={CVDs}
