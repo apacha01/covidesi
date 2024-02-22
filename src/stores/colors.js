@@ -1,4 +1,4 @@
-import { atom, onSet } from "nanostores";
+import { atom } from "nanostores";
 
 const hexStringRegex = /(?:#?[0-9a-fA-F]{6}|#?[0-9a-fA-F]{3})/;
 
@@ -31,8 +31,3 @@ export const setCvdBgColor = (newColor) => {
 	if (hexStringRegex.exec(newColor).length > 0)
 		cvdBgColor.set(newColor);
 };
-
-onSet(textColor, console.log)
-onSet(bgColor, console.log)
-onSet(cvdTextColor, console.log)
-onSet(cvdBgColor, console.log)
