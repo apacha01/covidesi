@@ -1,0 +1,54 @@
+---
+interface Props {
+	class?: string;
+	title?: string;
+	subtitle?: string;
+}
+
+const { class: className, title, subtitle } = Astro.props;
+---
+
+<article id="sample-page" class={className}>
+	<h2 class="text-3xl text-center">{title ?? "Sample Title"}</h2>
+	<h5 class="text-xl">{subtitle ?? "Subtitle"}</h5>
+	<p class="ml-2 text-lg text-pretty">
+		Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum facere
+		labore explicabo doloremque, repellat ipsam ab ea atque itaque delectus.
+		Perferendis inventore ipsum aut accusamus unde fugiat quia temporibus
+		voluptatum?
+	</p>
+	<p class="ml-2 text-lg text-pretty">
+		Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum facere
+		labore explicabo doloremque, repellat ipsam ab ea atque itaque delectus.
+		Perferendis inventore ipsum aut accusamus unde fugiat quia temporibus
+		voluptatum? Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+		Distinctio possimus veritatis sed voluptates commodi. Voluptas
+		praesentium sequi suscipit, dolorem a, dignissimos amet incidunt
+		deserunt iste quam optio porro vero culpa.
+	</p>
+	<p class="ml-2 text-lg text-pretty">
+		Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum facere
+		labore explicabo doloremque, repellat ipsam ab ea atque itaque delectus.
+		Perferendis inventore ipsum aut accusamus unde fugiat quia temporibus
+		voluptatum?
+	</p>
+	<p class="ml-2 text-lg text-pretty">
+		Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum facere
+		labore explicabo doloremque, repellat ipsam ab ea atque itaque delectus.
+		Perferendis inventore ipsum aut accusamus unde fugiat quia temporibus
+		voluptatum?
+	</p>
+</article>
+
+<script>
+	const spage = document.getElementById("sample-page");
+	import { bgColor, textColor } from "../stores/colors";
+
+	// Subscribe to the changes with the sample page colors
+	bgColor.subscribe((v, ov) => {
+		spage.style.backgroundColor = v;
+	});
+	textColor.subscribe((v, ov) => {
+		spage.style.color = v;
+	});
+</script>
