@@ -4,13 +4,14 @@ import ColorsInput from "../components/ColorsInput.astro";
 import SamplePage from "../components/SamplePage.astro";
 import ContrastChecker from "../components/ContrastChecker.astro";
 import CvdSelector from "../components/CvdSelector.astro";
+import Examples from "../components/Examples.astro";
 ---
 
 <Layout
 	title="Covidesi - Color Vision Deficency Simulator"
 	description="A color blindness simulator for developers so you can see how people with different color vision deficencies actually see the world, and your page."
 >
-	<main class="flex flex-col 2xl:flex-row">
+	<main class="flex flex-col 2xl:flex-row gap-4">
 		<!-- Small sample page with the controls -->
 		<section class="w-full 2xl:w-1/2 p-4">
 			<!-- Text and Background Color Inputs -->
@@ -33,6 +34,8 @@ import CvdSelector from "../components/CvdSelector.astro";
 		</section>
 
 		<!-- Banner & Buttons examples -->
-		<section class="w-1/2"></section>
+		<section class="w-full 2xl:w-1/2 p-4">
+			<Examples />
+		</section>
 	</main>
 </Layout>

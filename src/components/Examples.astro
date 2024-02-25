@@ -1,0 +1,162 @@
+---
+import Icons from "../components/Icons.astro";
+import ButtonOutline from "./ButtonOutline.astro";
+import ButtonSolid from "./ButtonSolid.astro";
+import Toggle from "./Toggle.astro";
+import Range from "./Range.astro";
+import { CVD } from "../constants";
+---
+
+<section class="w-full flex flex-col md:h-[650px]">
+	<h3 class="text-4xl text-center font-bold mb-12">Examples</h3>
+
+	<div
+		class="w-full flex-1 flex flex-col gap-12 md:flex-row md:gap-0 justify-between items-center"
+	>
+		<div class="hidden md:flex h-full flex-col items-end justify-between">
+			<span class="font-bold text-lg">CVD</span>
+			<span class="font-bold text-lg">Buttons Outline</span>
+			<span class="font-bold text-lg">Buttons Solid</span>
+			<span class="font-bold text-lg">Toggles</span>
+			<span class="font-bold text-lg">Icons</span>
+			<span class="font-bold text-lg">Ranges</span>
+		</div>
+
+		<div
+			class="h-full flex flex-col gap-8 items-center md:justify-between md:gap-0"
+		>
+			<h4 class="font-semibold text-3xl">{CVD.PROTANOPIA}</h4>
+			<ButtonOutline
+				data-cvd=`${CVD.PROTANOPIA}`
+				class="__textColor"
+				textColor="#000"
+			/>
+			<ButtonSolid
+				data-cvd=`${CVD.PROTANOPIA}`
+				class="__textColor __bgColor"
+				textColor="#fff"
+				bgColor="#000"
+			/>
+			<Toggle
+				data-cvd=`${CVD.PROTANOPIA}`
+				class="__textColor __bgColor"
+				textColor="#000"
+				bgColor="#fff"
+			/>
+			<Icons
+				data-cvd=`${CVD.PROTANOPIA}`
+				svgsColor="#000"
+				class="__textColor flex gap-2 w-40"
+			/>
+			<Range
+				data-cvd=`${CVD.PROTANOPIA}`
+				textColor="#000"
+				class="__textColor"
+			/>
+		</div>
+
+		<div
+			class="h-full flex flex-col gap-8 items-center md:justify-between md:gap-0"
+		>
+			<h4 class="font-semibold text-3xl">{CVD.DEUTERANOPIA}</h4>
+			<ButtonOutline
+				data-cvd=`${CVD.DEUTERANOPIA}`
+				class="__textColor"
+				textColor="#000"
+			/>
+			<ButtonSolid
+				data-cvd=`${CVD.DEUTERANOPIA}`
+				class="__textColor __bgColor"
+				textColor="#fff"
+				bgColor="#000"
+			/>
+			<Toggle
+				data-cvd=`${CVD.DEUTERANOPIA}`
+				class="__textColor __bgColor"
+				textColor="#000"
+				bgColor="#fff"
+			/>
+			<Icons
+				data-cvd=`${CVD.DEUTERANOPIA}`
+				svgsColor="#000"
+				class="__textColor flex gap-2 w-40"
+			/>
+			<Range
+				data-cvd=`${CVD.DEUTERANOPIA}`
+				textColor="#000"
+				class="__textColor"
+			/>
+		</div>
+
+		<div
+			class="h-full flex flex-col gap-8 items-center md:justify-between md:gap-0"
+		>
+			<h4 class="font-semibold text-3xl">{CVD.TRITANOPIA}</h4>
+			<ButtonOutline
+				data-cvd=`${CVD.TRITANOPIA}`
+				class="__textColor"
+				textColor="#000"
+			/>
+			<ButtonSolid
+				data-cvd=`${CVD.TRITANOPIA}`
+				class="__textColor __bgColor"
+				textColor="#fff"
+				bgColor="#000"
+			/>
+			<Toggle
+				data-cvd=`${CVD.TRITANOPIA}`
+				class="__textColor __bgColor"
+				textColor="#000"
+				bgColor="#fff"
+			/>
+			<Icons
+				data-cvd=`${CVD.TRITANOPIA}`
+				svgsColor="#000"
+				class="__textColor flex gap-2 w-40"
+			/>
+			<Range
+				data-cvd=`${CVD.TRITANOPIA}`
+				textColor="#000"
+				class="__textColor"
+			/>
+		</div>
+	</div>
+</section>
+
+<script>
+	import { bgColor, textColor } from "../stores/colors";
+	import { calculateColorByCvd, rgb2hex } from "../utils";
+
+	const subscribeToTextElements = Array.from(
+		document.getElementsByClassName("__textColor"),
+	);
+	const subscribeToBckgElements = Array.from(
+		document.getElementsByClassName("__bgColor"),
+	);
+
+	subscribeToTextElements.forEach((e) => {
+		textColor.subscribe((v, ov) => {
+			let cvd = e.getAttribute("data-cvd");
+			let severity = 10;
+			let color = v;
+
+			e.style.setProperty(
+				"--tc",
+				rgb2hex(calculateColorByCvd(cvd, severity, color)),
+			);
+		});
+	});
+
+	subscribeToBckgElements.forEach((e) => {
+		bgColor.subscribe((v, ov) => {
+			let cvd = e.getAttribute("data-cvd");
+			let severity = 10;
+			let color = v;
+
+			e.style.setProperty(
+				"--bc",
+				rgb2hex(calculateColorByCvd(cvd, severity, color)),
+			);
+		});
+	});
+</script>
