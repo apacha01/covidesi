@@ -1,0 +1,29 @@
+---
+import { calculateRelativeLuminance, hex2rgb } from "../utils";
+
+interface Props {
+	textColor: string;
+	bgColor: string;
+	class?: string;
+}
+
+let { bgColor, textColor } = Astro.props;
+
+// set darker color as bg
+if (
+	calculateRelativeLuminance(hex2rgb(bgColor)) <
+	calculateRelativeLuminance(hex2rgb(textColor))
+) {
+	let t = textColor;
+	textColor = bgColor;
+	bgColor = t;
+}
+---
+
+<button
+	data-cvd={Astro.props["data-cvd"] ?? "Normal"}
+	class=`py-3 px-6 rounded-lg max-w-32 text-lg ${Astro.props.class}`
+	style=`--tc: ${textColor}; --bc: ${bgColor}; color:var(--tc); background-color:var(--bc);`
+>
+	Button
+</button>

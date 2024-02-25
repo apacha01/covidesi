@@ -1,0 +1,16 @@
+---
+interface Props {
+	textColor: string;
+	class?: string;
+}
+
+const { textColor } = Astro.props;
+---
+
+<button
+	data-cvd={Astro.props["data-cvd"] ?? "Normal"}
+	class=`py-3 px-6 rounded-lg max-w-32 text-lg ${Astro.props.class}`
+	style=`--tc: ${textColor}; color:var(--tc); border:1px solid var(--tc)`
+>
+	Button
+</button>

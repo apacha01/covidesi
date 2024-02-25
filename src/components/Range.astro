@@ -1,0 +1,16 @@
+---
+interface Props {
+	textColor: string;
+	class?: string;
+}
+
+const { textColor } = Astro.props;
+---
+
+<label
+	data-cvd={Astro.props["data-cvd"] ?? "Normal"}
+	class={Astro.props.class}
+	style=`--tc: ${textColor};`
+>
+	<input type="range" style="accent-color: var(--tc);" />
+</label>
