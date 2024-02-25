@@ -36,13 +36,27 @@ const { class: className, title, subtitle } = Astro.props;
 
 <script>
 	const spage = document.getElementById("sample-page");
-	import { cvdBgColor, cvdTextColor } from "../stores/colors";
+	import { textColor, bgColor } from "../stores/colors";
+	import { cvd } from "../stores/cvd";
+	import { calculateColorByCvd, rgb2hex } from "../utils";
 
 	// Subscribe to the changes with the sample page colors
-	cvdBgColor.subscribe((v, ov) => {
-		spage.style.backgroundColor = v;
+	bgColor.subscribe((v, ov) => {
+		spage.style.backgroundColor = rgb2hex(
+			calculateColorByCvd(cvd.get().cvd, cvd.get().severity, v),
+		);
 	});
-	cvdTextColor.subscribe((v, ov) => {
-		spage.style.color = v;
+	textColor.subscribe((v, ov) => {
+		spage.style.color = rgb2hex(
+			calculateColorByCvd(cvd.get().cvd, cvd.get().severity, v),
+		);
+	});
+	cvd.subscribe((v, ov) => {
+		spage.style.backgroundColor = rgb2hex(
+			calculateColorByCvd(v.cvd, v.severity, bgColor.get()),
+		);
+		spage.style.color = rgb2hex(
+			calculateColorByCvd(v.cvd, v.severity, textColor.get()),
+		);
 	});
 </script>
