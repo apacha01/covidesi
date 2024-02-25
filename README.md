@@ -26,6 +26,16 @@ The paper goes from 0 to 10 where 0, in each and every case, is normal vision, b
 
 There is also __Monochromatic__, also called __Achromatopsia__, vision, which is a specific eye condition in which people see in grey scale, but it is not covered in this page.
 
+## The webapp
+![COVIDESI Web page screenshot](./readme_images/web_showcase.png)
+
+The web was design so it fits my screen perfectly in my laptop. I didn't put much effort into making it responsive so the best experience will come from PC and something with (or higher) dimensions of `1920x1080 pixels (508x285 millimeters)`. If you know the stack used and want to contribute, just make a pull request with the css adjusted so it's responsiveness is better.
+
+### The stack
+* [![Astro](https://img.shields.io/badge/Astro-fff?style=for-the-badge&logo=astro&logoColor=bd303a&color=352563)](https://astro.build/) - The web framework for content-driven websites.
+* [![Typescript](https://img.shields.io/badge/Typescript-007ACC?style=for-the-badge&logo=typescript&logoColor=white&color=blue)](https://www.typescriptlang.org/) - JavaScript with syntax for types.
+* [![Tailwind CSS](https://img.shields.io/badge/Tailwind-ffffff?style=for-the-badge&logo=tailwindcss&logoColor=38bdf8)](https://tailwindcss.com/) - A utility-first CSS framework for rapidly building custom designs.
+
 ## TODO
 
 - [ ] Add a color generator to get the closest color combination that's accessible in case the two input colors don't have enough contrast.
